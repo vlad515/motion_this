@@ -57,19 +57,22 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Центр по вертикали */
+            align-items: center;     /* Центр по горизонтали */
             position: relative;
+            width: 100%;
         }
 
         .logo-wrapper {
             display: flex;
+            justify-content: center; /* !!! ЖЕСТКАЯ ЦЕНТРОВКА СЛОВ !!! */
             align-items: center;
             font-size: 8vw;
             font-weight: 900;
             line-height: 1;
             letter-spacing: -0.03em;
             overflow: hidden;
+            width: 100%; /* Чтобы занимало всю ширину и центрировалось внутри */
         }
 
         .word-motion {
@@ -102,12 +105,12 @@
         }
 
         .tagline {
-            text-align: center;
             margin-top: 30px;
             font-size: 1.1rem;
             color: #666;
             opacity: 0;
             transform: translateY(20px);
+            text-align: center; /* Центровка текста подписи */
         }
 
         .glitch {
@@ -158,7 +161,6 @@
             box-shadow: 0 20px 40px -10px rgba(0, 194, 255, 0.1);
         }
         
-        /* Стили для активной карточки */
         .card.active {
             border-color: var(--accent);
             box-shadow: 0 0 20px rgba(0, 194, 255, 0.05);
@@ -192,7 +194,6 @@
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        /* Состояния переключателя */
         .card.active .toggle-switch { background: var(--accent); }
         .card.active .toggle-knob { transform: translateX(22px); }
         
@@ -240,7 +241,6 @@
                 <p>Midjourney, Stable Diffusion, Runway. Использую ИИ как второй пилот для генерации идей и ассетов.</p>
             </div>
             
-            <!-- ИЗМЕНЕНИЕ: Добавлен класс active сразу -->
             <div class="card active" id="wife-card">
                 <h2>❤️ Search</h2>
                 <p>Проект "Жена". Статус миссии:</p>
@@ -251,7 +251,6 @@
                         <div class="toggle-knob"></div>
                     </div>
                 </div>
-                <!-- ИЗМЕНЕНИЕ: Сразу статус scanning и голубой цвет -->
                 <span class="status-text" id="status-label" style="color: #00C2FF;">SCANNING DATABASE... 🟢</span>
             </div>
         </div>
