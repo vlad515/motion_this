@@ -1,0 +1,301 @@
+code
+Html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motion This | Моушн, Нейронки и Котики</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --accent-color: #00C2FF; /* Твой голубой цвет */
+            --gray-color: #1f1f1f;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo-mini {
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: -1px;
+        }
+        .logo-mini span { color: var(--accent-color); }
+
+        .cta-btn {
+            background: var(--accent-color);
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: transform 0.2s;
+        }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        /* --- HERO SECTION (ANIMATION) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* LOGO ANIMATION CSS */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            font-size: 5rem; /* Размер логотипа */
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container { font-size: 3rem; flex-direction: column; gap: 10px;} 
+        }
+
+        .word-static { color: #fff; margin-right: 15px; }
+        
+        .word-cycle-window {
+            height: 1.1em; /* Высота одной строки */
+            overflow: hidden;
+            position: relative;
+            color: var(--accent-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .word-cycle-list {
+            animation: spinWords 4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+        }
+
+        /* Слова внутри прокрутки */
+        .cycle-item {
+            height: 1.1em;
+            display: flex;
+            align-items: center;
+            /* Исправление для выравнивания */
+            transform: translateY(-2%); 
+        }
+
+        /* Сама анимация прокрутки */
+        @keyframes spinWords {
+            0% { transform: translateY(0); }
+            15% { transform: translateY(-100%); } /* DESIGN */
+            30% { transform: translateY(-200%); } /* AI */
+            45% { transform: translateY(-300%); } /* LIFE */
+            60% { transform: translateY(-400%); } /* CATS */
+            75%, 95% { transform: translateY(-500%); } /* THIS (стоп) */
+            100% { transform: translateY(0); } /* Ресет для лупа */
+        }
+
+        /* Подзаголовок */
+        .hero p {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 600px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        /* --- ABOUT & WIFE SEARCH --- */
+        .grid-section {
+            padding: 80px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--gray-color);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--accent-color); }
+
+        h2 { font-size: 2rem; margin-bottom: 20px; }
+        
+        /* Свич для жены */
+        .wife-toggle-container {
+            margin-top: 20px;
+            background: #000;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--accent-color); }
+        input:checked + .slider:before { transform: translateX(26px); }
+        
+        #wife-status {
+            font-weight: bold;
+            color: #666;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: #555;
+            border-top: 1px solid #333;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-mini">MOTION <span>THIS</span></div>
+        <a href="https://t.me/motion_this" target="_blank" class="cta-btn">В Канал</a>
+    </header>
+
+    <!-- HERO с анимацией логотипа -->
+    <section class="hero">
+        <div class="logo-container">
+            <div class="word-static">MOTION</div>
+            <div class="word-cycle-window">
+                <div class="word-cycle-list">
+                    <!-- Дублируем слова для бесшовной прокрутки -->
+                    <div class="cycle-item">DESIGN</div>
+                    <div class="cycle-item">AI</div>
+                    <div class="cycle-item">LIFE</div>
+                    <div class="cycle-item">CATS</div>
+                    <div class="cycle-item">WIFE?</div>
+                    <div class="cycle-item">THIS</div> <!-- Финал -->
+                    <div class="cycle-item">DESIGN</div> <!-- Для плавного зацикливания -->
+                </div>
+            </div>
+        </div>
+        <p>
+            Моушн дизайн, нейросети, жизнь, котики.<br>
+            И да, я все еще ищу жену.
+        </p>
+    </section>
+
+    <!-- Блоки контента -->
+    <section class="grid-section">
+        <div class="card">
+            <h3>🎨 Motion</h3>
+            <p style="margin-top:10px; color:#aaa;">
+                Разбираю тренды, показываю свои работы и делюсь туториалами. Никакой воды, только кейфреймы.
+            </p>
+        </div>
+        <div class="card">
+            <h3>🤖 AI & Tech</h3>
+            <p style="margin-top:10px; color:#aaa;">
+                Генерирую картинки, тестирую новые модели и пытаюсь понять, заменят ли нас роботы (спойлер: нет, пока мы умеем шутить).
+            </p>
+        </div>
+        <div class="card">
+            <h3>💍 Project: Wife</h3>
+            <p style="margin-top:10px; color:#aaa;">Статус поиска:</p>
+            
+            <div class="wife-toggle-container">
+                <span>Активный поиск</span>
+                <label class="switch">
+                    <input type="checkbox" id="wifeToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div id="wife-status">Статус: В АКТИВНОМ ПОИСКЕ</div>
+            <p style="font-size: 0.8rem; color: #555; margin-top: 10px;">
+                *Заявки принимаются в личку телеграма
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Motion This. <br>Сделано с помощью AI, но с душой.</p>
+        <br>
+        <a href="https://t.me/MotionThis">Подписаться на канал</a>
+    </footer>
+
+    <script>
+        // Скрипт для переключателя "Поиск жены"
+        const toggle = document.getElementById('wifeToggle');
+        const statusText = document.getElementById('wife-status');
+
+        toggle.addEventListener('change', function() {
+            if(this.checked) {
+                statusText.textContent = "Статус: В АКТИВНОМ ПОИСКЕ 🟢";
+                statusText.style.color = "#00C2FF";
+            } else {
+                statusText.textContent = "Статус: ПРИОСТАНОВЛЕНО (Слишком много работы) 🔴";
+                statusText.style.color = "#666";
+            }
+        });
+        
+        // Инициализация цвета
+        statusText.style.color = "#00C2FF";
+    </script>
+
+</body>
+</html>
