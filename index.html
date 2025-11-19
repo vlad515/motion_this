@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motion This | Portfolio</title>
-    <!-- Подключаем шрифт Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Подключаем GSAP (движок анимации) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
@@ -28,14 +25,12 @@
             color: var(--text);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            /* Фоновая сетка для стиля */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
         }
 
-        /* --- HEADER --- */
         header {
             position: fixed;
             top: 0; width: 100%;
@@ -58,7 +53,6 @@
         }
         .btn:hover { transform: scale(1.05); background: var(--accent); color: #000; }
 
-        /* --- HERO ANIMATION --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -70,12 +64,12 @@
 
         .logo-wrapper {
             display: flex;
-            align-items: center; /* Выравнивание по центру */
-            font-size: 8vw; /* Адаптивный размер */
+            align-items: center;
+            font-size: 8vw;
             font-weight: 900;
             line-height: 1;
             letter-spacing: -0.03em;
-            overflow: hidden; /* Скрываем вылетающие элементы */
+            overflow: hidden;
         }
 
         .word-motion {
@@ -85,14 +79,12 @@
             display: inline-block;
         }
 
-        /* Контейнер для прыгающих слов */
         .spinner-box {
-            height: 1em; /* Высота ровно под одну строку текста */
+            height: 1em;
             overflow: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
-            /* Выравниваем базовую линию текста */
             vertical-align: bottom; 
         }
 
@@ -106,20 +98,17 @@
             display: flex;
             align-items: center;
             color: var(--accent);
-            /* Корректировка визуального выравнивания шрифта */
             transform: translateY(-2%); 
         }
 
-        /* Подпись */
         .tagline {
             margin-top: 30px;
             font-size: 1.1rem;
             color: #666;
-            opacity: 0; /* Скрыто до анимации */
+            opacity: 0;
             transform: translateY(20px);
         }
 
-        /* Глитч эффект */
         .glitch {
             animation: glitch-anim 0.3s infinite;
             color: var(--accent);
@@ -143,7 +132,6 @@
             100% { transform: translate(0); }
         }
 
-        /* --- CONTENT BLOCKS --- */
         .content {
             padding: 100px 20px;
             max-width: 1000px;
@@ -168,11 +156,16 @@
             border-color: var(--accent);
             box-shadow: 0 20px 40px -10px rgba(0, 194, 255, 0.1);
         }
+        
+        /* Стили для активной карточки */
+        .card.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 194, 255, 0.05);
+        }
 
         h2 { margin-bottom: 15px; font-size: 1.5rem; color: #fff; }
         p { color: #888; line-height: 1.6; }
 
-        /* UI Toggle */
         .toggle-row {
             display: flex;
             justify-content: space-between;
@@ -197,13 +190,15 @@
             top: 2px; left: 2px;
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .active .toggle-switch { background: var(--accent); }
-        .active .toggle-knob { transform: translateX(22px); }
+        
+        /* Состояния переключателя */
+        .card.active .toggle-switch { background: var(--accent); }
+        .card.active .toggle-knob { transform: translateX(22px); }
         
         .status-text { font-size: 0.85rem; font-weight: bold; margin-top: 10px; display: block; color: #555; }
 
-        /* Footer */
         footer { text-align: center; padding: 60px; color: #444; font-size: 0.9rem; }
+        footer a { color: #666; text-decoration: none; }
 
     </style>
 </head>
@@ -226,7 +221,7 @@
                     <div class="spin-item">FUTURE</div>
                     <div class="spin-item">WIFE?</div>
                     <div class="spin-item">MAGIC</div>
-                    <div class="spin-item">THIS</div> <!-- Финал -->
+                    <div class="spin-item">THIS</div>
                 </div>
             </div>
         </div>
@@ -243,7 +238,9 @@
                 <h2>🧠 Neural</h2>
                 <p>Midjourney, Stable Diffusion, Runway. Использую ИИ как второй пилот для генерации идей и ассетов.</p>
             </div>
-            <div class="card" id="wife-card">
+            
+            <!-- ИЗМЕНЕНИЕ: Добавлен класс active сразу -->
+            <div class="card active" id="wife-card">
                 <h2>❤️ Search</h2>
                 <p>Проект "Жена". Статус миссии:</p>
                 
@@ -253,61 +250,45 @@
                         <div class="toggle-knob"></div>
                     </div>
                 </div>
-                <span class="status-text" id="status-label">OFFLINE</span>
+                <!-- ИЗМЕНЕНИЕ: Сразу статус scanning и голубой цвет -->
+                <span class="status-text" id="status-label" style="color: #00C2FF;">SCANNING DATABASE... 🟢</span>
             </div>
         </div>
     </section>
 
     <footer>
-        MOTION THIS © 2024 <br>
-        <span style="opacity: 0.5">Пока вы читали это, я сгенерировал кота</span>
+        MOTION THIS © 2025 <br>
+        <a href="https://t.me/motion_this">Подписаться на канал</a>
     </footer>
 
     <script>
-        // --- GSAP АНИМАЦИЯ (Тут магия) ---
-        
-        // 1. Начальная позиция: Скрываем "Motion" влево, а спинер вниз
+        // --- АНИМАЦИЯ ---
         gsap.set(".word-motion", { x: -100, opacity: 0 });
-        gsap.set(".spinner-list", { y: "0%" }); // Начинаем с первого слова
+        gsap.set(".spinner-list", { y: "0%" });
 
-        // Создаем таймлайн
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-        // 2. Анимация появления
-        tl.to(".word-motion", { 
-            duration: 1, 
-            x: 0, 
-            opacity: 1, 
-            delay: 0.5 
-        })
-        // 3. Прокрутка слов (Слот-машина)
+        tl.to(".word-motion", { duration: 1, x: 0, opacity: 1, delay: 0.5 })
         .to(".spinner-list", {
             duration: 2,
-            y: "-85.7%", // Сдвиг на 6 элементов из 7 (100 / 7 * 6 = ~85.7)
-            ease: "elastic.out(1, 0.6)", // Эффект пружины в конце
-        }, "-=0.5") // Начинаем чуть раньше, пока едет Motion
-        
-        // 4. Эффект "Удара" при остановке (зум камеры)
+            y: "-85.7%",
+            ease: "elastic.out(1, 0.6)",
+        }, "-=0.5")
         .from(".hero", {
             duration: 0.5,
             scale: 1.02,
             ease: "power2.out"
-        }, "<2.0") // Синхронно с остановкой спиннера
-
-        // 5. Появление подписи
+        }, "<2.0")
         .to(".tagline", {
             duration: 1,
             y: 0,
             opacity: 1
         }, "-=0.5");
 
-        // Добавляем глитч-эффект на финальное слово через JS для точности
         setTimeout(() => {
             const finalWord = document.querySelector('.spinner-list').lastElementChild;
             finalWord.classList.add('glitch');
-            // Уберем глитч через 200мс
             setTimeout(() => finalWord.classList.remove('glitch'), 300);
-            // Еще раз через пару секунд для живости
             setInterval(() => {
                 if(Math.random() > 0.7) {
                     finalWord.classList.add('glitch');
@@ -316,9 +297,10 @@
             }, 3000);
         }, 2500);
 
+        // --- ИНТЕРАКТИВ ---
+        // ИЗМЕНЕНИЕ: Ставим true по умолчанию
+        let isSearching = true; 
 
-        // --- ИНТЕРАКТИВ ЖЕНЫ ---
-        let isSearching = false;
         function toggleWife() {
             const card = document.getElementById('wife-card');
             const label = document.getElementById('status-label');
@@ -329,8 +311,7 @@
                 card.classList.add('active');
                 label.innerText = "SCANNING DATABASE... 🟢";
                 label.style.color = "#00C2FF";
-                
-                // Эффект пульсации для карточки
+                // Легкий "бамп" при включении
                 gsap.to(card, { scale: 1.02, duration: 0.1, yoyo: true, repeat: 1 });
             } else {
                 card.classList.remove('active');
