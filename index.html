@@ -269,23 +269,31 @@
 
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-        tl.to(".word-motion", { duration: 1, x: 0, opacity: 1, delay: 0.5 })
+        // --- ВОТ ТУТ Я ЗАМЕДЛИЛ АНИМАЦИЮ ---
+        tl.to(".word-motion", { 
+            duration: 2,   /* Было 1, стало 2 (медленнее) */
+            x: 0, 
+            opacity: 1, 
+            delay: 0.5 
+        })
         .to(".spinner-list", {
-            duration: 2,
+            duration: 4.5, /* Было 2, стало 3.5 (медленная прокрутка) */
             y: "-85.7%",
-            ease: "elastic.out(1, 0.6)",
-        }, "-=0.5")
+            ease: "elastic.out(1, 0.7)",
+        }, "-=1.5") // Синхронизация перекрытия
+        
         .from(".hero", {
-            duration: 0.5,
+            duration: 1,
             scale: 1.02,
             ease: "power2.out"
-        }, "<2.0")
+        }, "<3.0")
         .to(".tagline", {
-            duration: 1,
+            duration: 1.5,
             y: 0,
             opacity: 1
         }, "-=0.5");
 
+        // Глитч эффект в конце
         setTimeout(() => {
             const finalWord = document.querySelector('.spinner-list').lastElementChild;
             finalWord.classList.add('glitch');
@@ -296,10 +304,9 @@
                     setTimeout(() => finalWord.classList.remove('glitch'), 200);
                 }
             }, 3000);
-        }, 2500);
+        }, 4500); // Увеличил задержку появления глитча, так как анимация стала длиннее
 
         // --- ИНТЕРАКТИВ ---
-        // ИЗМЕНЕНИЕ: Ставим true по умолчанию
         let isSearching = true; 
 
         function toggleWife() {
@@ -312,7 +319,6 @@
                 card.classList.add('active');
                 label.innerText = "SCANNING DATABASE... 🟢";
                 label.style.color = "#00C2FF";
-                // Легкий "бамп" при включении
                 gsap.to(card, { scale: 1.02, duration: 0.1, yoyo: true, repeat: 1 });
             } else {
                 card.classList.remove('active');
